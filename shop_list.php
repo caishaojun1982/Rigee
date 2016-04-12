@@ -30,20 +30,31 @@ if (isset ($_SESSION['member_login']) == false) {
 
 try {
 
-  $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
+  $dsn = 'mysql:dbname=rigee;host=localhost;charset=utf8';
   $user = 'root';
   $password = '';
   $dbh = new PDO($dsn,$user,$password);
   $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-  $sql = 'SELECT code,name,price FROM mst_product WHERE 1';
+  $sql = 'SELECT * FROM mst_product WHERE 1';
   $stmt = $dbh->prepare ($sql);
   $stmt->execute ();
 
   $dbh = null;
 
-  print '商品一覧<br /><br />';
+  // print '商品一覧<br /><br />';
+  // 先頭のImageのレイアウト
+  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/logo-rigee2.png" alt="画像の説明文"></a>';
+  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/logo-t.png" alt="画像の説明文"></a>';
 
+  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/nav01.png" alt="ホームへ"></a>';
+  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/nav04.png" alt="会社説明"></a>';
+  print '<a href="../Rigee/shop_cartlook.php"><img src="../Rigee/nav02.png" alt="カート"></a>';
+  print '<a href="../Rigee/staff_login/staff_login.html"><img src="../Rigee/nav05.png" alt="ログイン"></a><br/>';
+
+  // TODO: 特価商品
+
+  $index = 1;
   while (true) {
 
     $rec = $stmt->fetch (PDO::FETCH_ASSOC);
@@ -53,11 +64,11 @@ try {
       break;
     }
 
-    print '<a href="shop_product.php?procode='.$rec['code'].'">';
-    print $rec['name'].'---';
-    print $rec['price'].'円';
-    print '</a>';
-	  print '<br />';
+    print '<a href="shop_product.php?procode='.$rec['code'].'"><img src="../Rigee/product/gazou/'.$rec['pic_big'].'" alt="画像の説明文"></a>';
+
+    if ($index % 3 == 0){
+      print '<br />';
+    }
   }
   print '<br />';
   print '<a href="shop_cartlook.php">カートを見る</a><br />';
