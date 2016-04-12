@@ -48,7 +48,7 @@ if (isset ($SESSION['member_login']) == false) {
       exit();
     }
 
-    $dsn='mysql:dbname=shop;host=localhost;charset=utf8';
+    $dsn='mysql:dbname=rigee;host=localhost;charset=utf8';
     $user='root';
     $password='';
     $dbh=new PDO($dsn,$user,$password);
@@ -56,7 +56,7 @@ if (isset ($SESSION['member_login']) == false) {
 
     foreach ($cart as $key => $val) {
 
-      $sql = 'SELECT code,name,price,gazou FROM mst_product WHERE code=?';
+      $sql = 'SELECT * FROM mst_product WHERE code=?';
       $stmt = $dbh->prepare ($sql);
       $data[0] = $val;
       $stmt->execute ($data);
@@ -65,12 +65,16 @@ if (isset ($SESSION['member_login']) == false) {
 
       $pro_name[] = $rec['name'];
       $pro_price[] = $rec['price'];
+      $pro_size[] = $rec['size'];
+      $pro_model[] = $rec['model'];
+      $pro_feature[] = $rec['feature'];
 
-      if ($rec['gazou'] == "") {
+      // 小さい画像を取得
+      if ($rec['pic_small'] == "") {
 
-        $pro_gazou[] = "";
+        $pic_small[] = "";
       }else {
-        $pro_gazou[] = '<img src="../shop/product/gazou/'.$rec['gazou'].'">';
+        $pic_small[] = '<img src="../Rigee/product/gazou/'.$rec['pic_small'].'">';
       }
     }
 
@@ -87,22 +91,27 @@ if (isset ($SESSION['member_login']) == false) {
   <br />
   <table border="1">
     <tr>
-      <td>商品</td>
-      <td>商品画像</td>
-      <td>価格</td>
+      <td>小画像</td>
+      <td>商品名</td>
       <td>数量</td>
-      <td>小計</td>
-      <td>削除</td>
+      <td>価格</td>
+      <td>型番</td>
+      <td>サイズ</td>
+      <td>特徴</td>
+      <td>合計</td>
     </tr>
     <form method="post" action="kazu_change.php">
       <?php for($i=0;$i<$max;$i++)
       {
         ?>
         <tr>
+          <td><?php print $pic_small[$i]; ?></td>
           <td><?php print $pro_name[$i]; ?></td>
-          <td><?php print $pro_gazou[$i]; ?></td>
-          <td><?php print $pro_price[$i]; ?>円</td>
           <td><input type="text" name="kazu<?php print $i; ?>" value="<?php print $kazu[$i]; ?>"></td>
+          <td><?php print $pro_price[$i]; ?>円</td>
+          <td><?php print $pro_model[$i]; ?></td>
+          <td><?php print $pro_size[$i]; ?></td>
+          <td><?php print $pro_feature[$i]; ?></td>
           <td><?php print $pro_price[$i]*$kazu[$i]; ?>円</td>
           <td><input type="checkbox" name="sakujo<?php print $i; ?>"></td>
         </tr>
