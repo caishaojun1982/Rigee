@@ -5,7 +5,7 @@
   <title>ユビーネット</title>
 </head>
 <body>
-  スタッフログイン<br />
+  会員ログイン<br />
   <br />
   <form method="post" action="shop_login_check.php">
   ID<br />

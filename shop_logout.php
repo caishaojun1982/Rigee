@@ -19,7 +19,7 @@ session_destroy ();
 
 ログアウトしました。<br />
 <br />
-<a href="../Rigee/shop_list.php">ログイン画面へ</a>
+<a href="../Rigee/shop_list.php">ホームページのメイン画面へ</a>
 
 </body>
 </html>
