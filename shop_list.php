@@ -14,7 +14,8 @@ if (isset ($_SESSION['member_login']) == false) {
   print 'ようこそ';
   print $SESSION['member_name'];
   print ' 様　';
-  print '<a href="member_logout.php">ログアウト</a><br/>';
+  // print '<a href="member_logout.php">ログアウト</a><br/>';
+  print '<a href="shop_form.html">ログアウト</a><br/>';
   print '<br/>';
 }
  ?>
@@ -26,6 +27,14 @@ if (isset ($_SESSION['member_login']) == false) {
 <title>ユビーネット</title>
 </head>
 <body>
+
+  <a href="../Rigee/shop_list.php"><img src="../Rigee/logo-rigee2.png" alt="画像の説明文"></a>
+  <a href="../Rigee/shop_list.php"><img src="../Rigee/logo-t.png" alt="画像の説明文"></a>
+  <a href="../Rigee/shop_list.php"><img src="../Rigee/nav01.png" alt="ホームへ"></a>
+  <a href="../Rigee/shop_list.php"><img src="../Rigee/nav04.png" alt="会社説明"></a>
+  <a href="../Rigee/shop_cartlook.php"><img src="../Rigee/nav02.png" alt="カート"></a>
+  <a href="../Rigee/staff_login/staff_login.html"><img src="../Rigee/nav05.png" alt="ログイン"></a>
+  <br/>
 
 <?php
 
@@ -57,17 +66,6 @@ try {
 
   $dbh = null;
 
-  // print '商品一覧<br /><br />';
-  // 先頭のImageのレイアウト
-  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/logo-rigee2.png" alt="画像の説明文"></a>';
-  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/logo-t.png" alt="画像の説明文"></a>';
-
-  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/nav01.png" alt="ホームへ"></a>';
-  print '<a href="../Rigee/shop_list.php"><img src="../Rigee/nav04.png" alt="会社説明"></a>';
-  print '<a href="../Rigee/shop_cartlook.php"><img src="../Rigee/nav02.png" alt="カート"></a>';
-  print '<a href="../Rigee/staff_login/staff_login.html"><img src="../Rigee/nav05.png" alt="ログイン"></a><br/>';
-
-  // 特価商品
   while (true) {
 
     $rec = $stmt->fetch (PDO::FETCH_ASSOC);
@@ -92,6 +90,13 @@ try {
   print '<br/>';
   print '<a href="shop_product.php?procode='.$sale_pro['code'].'"><img src="../Rigee/product/gazou/'.$sale_pro['pic_big'].'" alt="画像の説明文"></a>';
   print '<br/>';
+  // セール商品の詳細
+  print $sale_pro['model'];
+  print '<br/>';
+  print $sale_pro['feature'];
+  print '<br/>';
+  print $sale_pro['price'];
+  print '<br/>';
 
   // 普通の商品
   for ($i=0; $i <count($normal_pro); $i++) {
@@ -114,6 +119,8 @@ try {
     }
   }
 
+  print '<br />';
+  print '<br />';
   print '<br />';
   print '<a href="shop_cartlook.php">カートを見る</a><br />';
 
