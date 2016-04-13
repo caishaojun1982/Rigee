@@ -34,8 +34,6 @@ try {
 
   $pro_code = $_GET['procode'];
 
-  print "$pro_code";
-
   $dsn='mysql:dbname=rigee;host=localhost;charset=utf8';
   $user='root';
   $password='';

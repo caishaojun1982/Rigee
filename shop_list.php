@@ -33,7 +33,7 @@ if (isset ($_SESSION['member_login']) == false) {
   <a href="../Rigee/shop_list.php"><img src="../Rigee/nav01.png" alt="ホームへ"></a>
   <a href="../Rigee/shop_list.php"><img src="../Rigee/nav04.png" alt="会社説明"></a>
   <a href="../Rigee/shop_cartlook.php"><img src="../Rigee/nav02.png" alt="カート"></a>
-  <a href="../Rigee/staff_login/staff_login.html"><img src="../Rigee/nav05.png" alt="ログイン"></a>
+  <a href="../Rigee/shop_login.php"><img src="../Rigee/nav05.png" alt="ログイン"></a>
   <br/>
 
 <?php
@@ -100,7 +100,11 @@ try {
 
   // 普通の商品
   for ($i=0; $i <count($normal_pro); $i++) {
-    print '<a href="shop_product.php?procode='.$normal_pro[$i]['code'].'"><img src="../Rigee/product/gazou/'.$normal_pro[$i]['pic_big'].'" alt="画像の説明文"></a>';
+    if ($i % 3 == 0){
+      print '<br/>';
+    }
+
+    print '<a href="shop_product.php?procode='.$normal_pro[$i]['code'].'"><img src="../Rigee/product/gazou/'.$normal_pro[$i]['pic_small'].'" alt="画像の説明文"></a>';
   }
 
   // 普通商品
