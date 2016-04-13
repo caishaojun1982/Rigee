@@ -124,7 +124,20 @@ if (isset ($_SESSION['member_login']) == false) {
     <input type="button" onclick="history.back()" value="戻る">
   </form>
   <br />
-  <a href="shop_form.html">ご購入手続きへ進む</a><br />
+  <!-- <a href="shop_form.html">ご購入手続きへ進む</a><br /> -->
+  <?php
+
+  if (isset ($_SESSION['member_login']) == false) {
+
+    print '<a href="shop_form.html">ご購入手続きへ進む</a><br />';
+    print '<br />';
+  }else {
+  
+    print '<a href="shop_form_check_user.php">ご購入手続きへ進む</a><br />';
+    print '<br />';
+  }
+
+   ?>>
 
 </body>
 </html>
