@@ -6,7 +6,7 @@ session_regenerate_id (true);
 if (isset($_SESSION['member_login']) == false)
 {
   print 'ようこそゲスト様　';
-  print '<a href="member_login.html">会員ログイン</a><br />';
+  print '<a href="shop_login.php">会員ログイン</a><br />';
   print '<br />';
 }
 else
@@ -14,7 +14,7 @@ else
   print 'ようこそ';
   print $_SESSION['member_name'];
   print '様　';
-  print '<a href="member_logout.php">ログアウト</a><br />';
+  print '<a href="shop_logout.php">ログアウト</a><br />';
   print '<br />';
 }
 
@@ -36,6 +36,20 @@ try {
 
   print "$pro_code";
 
+  $dsn='mysql:dbname=rigee;host=localhost;charset=utf8';
+  $user='root';
+  $password='';
+  $dbh=new PDO($dsn,$user,$password);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+  $sql = 'SELECT * FROM mst_product WHERE code=?';
+  $stmt = $dbh->prepare ($sql);
+  $data[] = $pro_code;
+  $stmt->execute ($data);
+
+  $rec = $stmt->fetch (PDO::FETCH_ASSOC);
+  $pro_name = $rec['name'];
+
   if (isset ($_SESSION['cart']) == true){
 
     $cart = $_SESSION['cart'];
@@ -43,7 +57,7 @@ try {
 
     if (in_array ($pro_code, $cart) == true){
 
-      print 'その商品はすでにカートに入っています。<br />';
+      print "$pro_name その商品はすでにカートに入っています。<br/><br/>";
       print '<a href="shop_list.php">商品一覧に戻る</a>';
       exit();
     }
@@ -62,7 +76,7 @@ try {
 
  ?>
 
- カートに追加しました。<br />
+ <?php print $pro_name; ?>カートに追加しました。<br />
 <br />
 <a href="shop_list.php">商品一覧に戻る</a>
 

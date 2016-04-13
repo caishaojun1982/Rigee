@@ -6,14 +6,14 @@ session_regenerate_id (true);
 if (isset ($_SESSION['member_login']) == false) {
 
   print 'ようこそゲスト様　';
-  print '<a href="member_login.html">会員ログイン</a><br />';
+  print '<a href="shop_login.php">会員ログイン</a><br />';
   print '<br />';
 }else {
 
   print 'ようこそ';
   print $_SESSION['member_name'];
   print '様　';
-  print '<a href="member_logout.php">ログアウト</a><br />';
+  print '<a href="shop_logout.php">ログアウト</a><br />';
   print '<br />';
 }
 
@@ -124,20 +124,7 @@ if (isset ($_SESSION['member_login']) == false) {
     <input type="button" onclick="history.back()" value="戻る">
   </form>
   <br />
-  <!-- <a href="shop_form.html">ご購入手続きへ進む</a><br /> -->
-  <?php
-
-  if (isset ($_SESSION['member_login']) == false) {
-
-    print '<a href="shop_form.html">ご購入手続きへ進む</a><br />';
-    print '<br />';
-  }else {
-  
-    print '<a href="shop_form_check_user.php">ご購入手続きへ進む</a><br />';
-    print '<br />';
-  }
-
-   ?>>
+  <a href="shop_form.html">ご購入手続きへ進む</a><br />
 
 </body>
 </html>
