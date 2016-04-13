@@ -61,7 +61,7 @@ if (isset ($_SESSION['member_login']) == false){
       $disp_gazou = '<img src="../Rigee/product/gazou/'.$pro_pic_big.'".png>';
     }
 
-    print '<a href="shop_cartin.php?procode='.$pro_code.'">カーとに入れる</a><br /><br />';
+    print '<a href="shop_cartin.php?procode='.$pro_code.'">カートに入れる</a><br /><br />';
   }catch (Exception $e){
 
     print 'ただいま障害により大変ご迷惑をお掛けしております。';
