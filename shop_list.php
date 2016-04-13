@@ -7,15 +7,15 @@ if (isset ($_SESSION['member_login']) == false) {
 
   print 'ようこそゲスト様　';
   // print '<a href="member_login.html">会員ログイン</a><br/>';
-  print '<a href="shop_form.html">会員ログイン</a><br/>';
+  print '<a href="shop_login.php">会員ログイン</a><br/>';
   print '<br/>';
 }else {
 
   print 'ようこそ';
-  print $SESSION['member_name'];
+  print $_SESSION['member_name'];
   print ' 様　';
   // print '<a href="member_logout.php">ログアウト</a><br/>';
-  print '<a href="shop_form.html">ログアウト</a><br/>';
+  print '<a href="shop_logout.php">ログアウト</a><br/>';
   print '<br/>';
 }
  ?>
