@@ -6,7 +6,8 @@ session_regenerate_id (true);
 if (isset ($_SESSION['member_login']) == false) {
 
   print 'ようこそゲスト様　';
-  print '<a href="member_login.html">会員ログイン</a><br/>';
+  // print '<a href="member_login.html">会員ログイン</a><br/>';
+  print '<a href="shop_form.html">会員ログイン</a><br/>';
   print '<br/>';
 }else {
 
@@ -27,6 +28,20 @@ if (isset ($_SESSION['member_login']) == false) {
 <body>
 
 <?php
+
+// セール中がどうか
+function isOnSale ($saleWeek){
+
+  $datetime = new DateTime();
+  $week = array("日", "月", "火", "水", "木", "金", "土");
+  $w = (int)$datetime->format('w');
+
+  if($saleWeek == $week[$w]){
+    return true;
+  }else {
+    return false;
+  }
+}
 
 try {
 
@@ -52,9 +67,7 @@ try {
   print '<a href="../Rigee/shop_cartlook.php"><img src="../Rigee/nav02.png" alt="カート"></a>';
   print '<a href="../Rigee/staff_login/staff_login.html"><img src="../Rigee/nav05.png" alt="ログイン"></a><br/>';
 
-  // TODO: 特価商品
-
-  $index = 1;
+  // 特価商品
   while (true) {
 
     $rec = $stmt->fetch (PDO::FETCH_ASSOC);
@@ -64,12 +77,43 @@ try {
       break;
     }
 
-    print '<a href="shop_product.php?procode='.$rec['code'].'"><img src="../Rigee/product/gazou/'.$rec['pic_big'].'" alt="画像の説明文"></a>';
+    if (isOnSale ($rec['sale_week']) == true){
 
-    if ($index % 3 == 0){
-      print '<br />';
+      $sale_pro = $rec;
+    }else {
+
+      $normal_pro[] = $rec;
     }
   }
+
+  // セール商品
+  $sale_week = $sale_pro['sale_week'];
+  print "$sale_week 曜日の特価商品：";
+  print '<br/>';
+  print '<a href="shop_product.php?procode='.$sale_pro['code'].'"><img src="../Rigee/product/gazou/'.$sale_pro['pic_big'].'" alt="画像の説明文"></a>';
+  print '<br/>';
+
+  // 普通の商品
+  for ($i=0; $i <count($normal_pro); $i++) {
+    print '<a href="shop_product.php?procode='.$normal_pro[$i]['code'].'"><img src="../Rigee/product/gazou/'.$normal_pro[$i]['pic_big'].'" alt="画像の説明文"></a>';
+  }
+
+  // 普通商品
+  while (true) {
+
+    $rec = $stmt->fetch (PDO::FETCH_ASSOC);
+
+    if ($rec == false) {
+
+      break;
+    }
+
+    if (isOnSale ($rec['sale_week']) == false){
+
+      print '<a href="shop_product.php?procode='.$rec['code'].'"><img src="../Rigee/product/gazou/'.$rec['pic_big'].'" alt="画像の説明文"></a>';
+    }
+  }
+
   print '<br />';
   print '<a href="shop_cartlook.php">カートを見る</a><br />';
 
